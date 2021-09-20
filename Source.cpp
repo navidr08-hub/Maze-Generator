@@ -44,11 +44,9 @@ public:
 		this->rows = x;
 		this->columns = y;
 
-		for (int i = 0; i < x; i++) {
-			for (int j = 0; j < y; j++) {
+		for (int i = 0; i < x; i++)
+			for (int j = 0; j < y; j++)
 				grid.push_back(Cell(i, j));
-			}
-		}
 		
 		int v = rand() % y;
 		grid[v].setVisited(true);
@@ -75,7 +73,8 @@ public:
 
 		for (int i = 0; i < grid.size(); i++)
 			DrawCell(&grid[i], olc::Pixel(olc::BLUE));
-
+		
+		// Making the first cell green
 		DrawCell(&path.top(), olc::Pixel(olc::GREEN));
 
 		return true;
@@ -95,7 +94,7 @@ public:
 
 		DrawCell(ptr);
 
-		array<int, 4> moves = { -1, -1, -1, -1 };	// move[0] = top, move[1] = left, move[2] = right, move[3] = bottom
+		array<int, 4> moves = { -1, -1, -1, -1 }; // move[0] = top, move[1] = left, move[2] = right, move[3] = bottom
 		vector<int> ok; // directions available
 
 		// checking which adjacent cells are within boundaries of maze
@@ -116,6 +115,7 @@ public:
 			if (grid[moves[i]].getVisited() == false)
 				ok.push_back(moves[i]);
 		}
+		
 		// "randomly" selecting one of the valid spots available
 		int next;
 		if (ok.size() != 0)
@@ -162,6 +162,7 @@ public:
 		path.push(grid[next]);
 		visits++;
 
+		// making current cell green to visually represent back-tracking algorithm
 		DrawCell(&path.top(), olc::Pixel(olc::GREEN));
 
 		return true;
@@ -175,7 +176,7 @@ int main()
 	int size;
 	scanf_s("%d", &size);
 
-	if (size < 2) { return 0; } //Maze must be square and larger than 1x1.
+	if (size < 2 && size > 100) { return 0; } // maze must be square and larger than 1x1.
 
 	BlueMaze maze(size, size);
 	if (maze.Construct((size * 3) - 1, (size * 3) - 1, 8, 8))
