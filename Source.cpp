@@ -176,7 +176,9 @@ int main()
 	int size;
 	scanf_s("%d", &size);
 
-	if (size < 2 && size > 100) { return 0; } // maze must be square and larger than 1x1.
+	if (size < 2 && size > 100) { 
+		cout << "Size must be between 2 - 100";
+		return 0; } // maze must be square and larger than 1x1.
 
 	BlueMaze maze(size, size);
 	if (maze.Construct((size * 3) - 1, (size * 3) - 1, 8, 8))
